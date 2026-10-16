@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sims Bustin' Out - Estación para Geraldinne 💖</title>
+    <!-- Tailwind CSS for modern responsive layout and styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Press Start 2P for retro arcade feel & Inter for UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        retro: ['"Press Start 2P"', 'monospace'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        gba: {
+                            purple: '#4c3b69',
+                            darkpurple: '#322547',
+                            lavender: '#e6dff9',
+                            pink: '#ffb5e8',
+                            rose: '#ff69b4',
+                            accent: '#b19cd9',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #2b1d3d 0%, #4c3b69 50%, #22132e 100%);
+            color: #f3e8ff;
+            min-height: 100vh;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #22132e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b19cd9;
+            border-radius: 4px;
+        }
+        .gba-shell {
+            background: linear-gradient(145deg, #d8b4fe, #c084fc);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.6), inset 0 -4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .dpad-btn {
+            background: radial-gradient(circle, #332145 0%, #1e112b 100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.2);
+            transition: all 0.05s ease;
+        }
+        .dpad-btn:active {
+            transform: scale(0.95);
+            background: #11091a;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .action-btn {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            box-shadow: 0 4px 10px rgba(255, 117, 140, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.5), inset 0 -2px 3px rgba(0, 0, 0, 0.2);
+            transition: all 0.05s ease;
+        }
+        .action-btn:active {
+            transform: scale(0.95);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header / Romantic Banner -->
+    <header class="w-full bg-gba-darkpurple/80 backdrop-blur-md border-b border-gba-purple/40 py-4 px-6 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gba-pink flex items-center justify-center text-gba-darkpurple shadow-md animate-pulse">
+                    <i class="fa-solid fa-gamepad text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-retro text-xs sm:text-sm text-gba-pink tracking-wider">PORTAL RETRO DE GERALDINNE</h1>
+                    <p class="text-xs text-gba-lavender/80">The Sims Bustin' Out Special Edition 💖</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2 flex-wrap justify-center">
+                <button onclick="openModal('githubModal')" class="px-4 py-2 bg-gba-purple hover:bg-gba-purple/80 text-xs text-gba-lavender rounded-full border border-gba-pink/30 transition shadow hover:shadow-gba-pink/20 flex items-center gap-2 font-medium">
+                    <i class="fa-brands.fa-github text-sm"></i> ¿Cómo subir a GitHub?
+                </button>
+                <button onclick="openModal('loveModal')" class="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-xs text-white rounded-full shadow transition flex items-center gap-2 font-medium animate-bounce">
+                    <i class="fa-solid fa-heart"></i> Mensaje para Geraldinne
+                </button>
+                <button onclick="toggleAudio()" id="audioToggle" class="px-3 py-2 bg-gba-darkpurple hover:bg-gba-purple text-xs text-gba-lavender rounded-full border border-gba-purple transition flex items-center gap-2">
+                    <i class="fa-solid fa-volume-high" id="audioIcon"></i> <span id="audioText">Música Romántica: Off</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 flex flex-col lg:flex-row gap-8 items-center lg:items-start justify-center">
+
+        <!-- Left / Emulator Instructions & Quick Panel -->
+        <div class="w-full lg:w-80 flex flex-col gap-6 order-2 lg:order-1">
+            <!-- Welcome Card -->
+            <div class="bg-gba-darkpurple/60 backdrop-blur-md rounded-2xl p-5 border border-gba-purple/50 shadow-xl">
+                <h2 class="font-retro text-xs text-gba-pink mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-sparkles"></i> Hola, Geraldinne!
+                </h2>
+                <p class="text-xs text-gba-lavender/90 leading-relaxed mb-4">
+                    Prearé este espacio especialmente para ti. Aquí podrás revivir el clásico de Game Boy Advance <strong>The Sims Bustin' Out</strong> directamente en tu navegador con estilo retro y mucho amor.
+                </p>
+                <div class="bg-gba-purple/30 rounded-xl p-3 border border-gba-lavender/10 text-xs space-y-2">
+                    <div class="flex items-center justify-between text-gba-pink">
+                        <span>Juego:</span>
+                        <span class="font-semibold text-white">The Sims Bustin' Out</span>
+                    </div>
+                    <div class="flex items-center justify-between text-gba-pink">
+                        <span>Plataforma:</span>
+                        <span class="font-semibold text-white">GBA / EmulatorJS</span>
+                    </div>
+                    <div class="flex items-center justify-between text-gba-pink">
+                        <span>Estado:</span>
+                        <span class="text-green-400 font-semibold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Listo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls Guide Card -->
+            <div class="bg-gba-darkpurple/60 backdrop-blur-md rounded-2xl p-5 border border-gba-purple/50 shadow-xl">
+                <h3 class="font-retro text-xs text-gba-accent mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-keyboard"></i> Controles de Teclado
+                </h3>
+                <ul class="text-xs text-gba-lavender/90 space-y-2">
+                    <li class="flex justify-between items-center bg-black/20 px-3 py-1.5 rounded-lg">
+                        <span>Movimiento:</span> <code class="bg-gba-purple/50 px-2 py-0.5 rounded text-gba-pink font-mono">Teclas de Flecha</code>
+                    </li>
+                    <li class="flex justify-between items-center bg-black/20 px-3 py-1.5 rounded-lg">
+                        <span>Botón A (Acción):</span> <code class="bg-gba-purple/50 px-2 py-0.5 rounded text-gba-pink font-mono">Tecla X / Z</code>
+                    </li>
+                    <li class="flex justify-between items-center bg-black/20 px-3 py-1.5 rounded-lg">
+                        <span>Botón B (Cancelar):</span> <code class="bg-gba-purple/50 px-2 py-0.5 rounded text-gba-pink font-mono">Tecla Z / X</code>
+                    </li>
+                    <li class="flex justify-between items-center bg-black/20 px-3 py-1.5 rounded-lg">
+                        <span>Start / Select:</span> <code class="bg-gba-purple/50 px-2 py-0.5 rounded text-gba-pink font-mono">Enter / Espacio</code>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ROM Loader / Custom File Option -->
+            <div class="bg-gba-darkpurple/60 backdrop-blur-md rounded-2xl p-5 border border-gba-purple/50 shadow-xl">
+                <h3 class="font-retro text-xs text-gba-pink mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-file-arrow-up"></i> Cargar otra ROM (.gba)
+                </h3>
+                <p class="text-xs text-gba-lavender/80 mb-3">Si tienes otra ROM guardada, puedes seleccionarla aquí:</p>
+                <input type="file" id="romUpload" accept=".gba,.gbc,.gb" class="w-full text-xs text-gba-lavender file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-gba-pink file:text-gba-darkpurple hover:file:bg-gba-rose cursor-pointer"/>
+            </div>
+        </div>
+
+        <!-- Center / Game Boy Advance Handheld Console Simulator -->
+        <div class="w-full lg:flex-1 flex flex-col items-center order-1 lg:order-2">
+            
+            <!-- GBA Physical-style Console Shell -->
+            <div class="gba-shell w-full max-w-[650px] rounded-3xl p-6 sm:p-8 flex flex-col items-center relative shadow-2xl">
+                
+                <!-- Power LED Indicator -->
+                <div class="absolute top-6 left-8 flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-600 shadow-[0_0_8px_#ff0000] animate-pulse" id="powerLed"></div>
+                    <span class="text-[10px] font-retro text-gba-darkpurple/70 tracking-widest uppercase">POWER</span>
+                </div>
+
+                <!-- Brand Title on Console -->
+                <div class="font-retro text-xs text-gba-darkpurple/80 tracking-widest mb-3 uppercase">
+                    Nintendo Game Boy Advance • Geraldinne Edition
+                </div>
+
+                <!-- Screen Bezel (Screen Container) -->
+                <div class="w-full bg-black rounded-2xl p-3 sm:p-4 shadow-inner border-4 border-gba-darkpurple/40 relative">
+                    
+                    <!-- Screen Overlay / Canvas or Emulator Container -->
+                    <div id="emulatorContainer" class="w-full aspect-[3/2] bg-gray-900 rounded-lg overflow-hidden flex flex-col items-center justify-center relative shadow-inner">
+                        
+                        <!-- Embedded Emulator Frame / EmulatorJS Simulation or Placeholder with direct playable web link -->
+                        <div id="loadingScreen" class="absolute inset-0 bg-gradient-to-br from-gba-darkpurple to-purple-900 flex flex-col items-center justify-center p-6 text-center z-10 transition-opacity duration-500">
+                            <div class="w-16 h-16 bg-gba-pink/20 rounded-full flex items-center justify-center text-gba-pink mb-4 animate-bounce">
+                                <i class="fa-solid fa-gamepad text-3xl"></i>
+                            </div>
+                            <h3 class="font-retro text-xs sm:text-sm text-gba-pink mb-2">The Sims Bustin' Out</h3>
+                            <p class="text-xs text-gba-lavender/80 max-w-sm mb-6">Preparado especialmente para que Geraldinne juegue sin interrupciones en línea.</p>
+                            
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <button onclick="launchEmulator()" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-xs font-retro text-white rounded-xl shadow-lg transition transform hover:scale-105 flex items-center gap-2">
+                                    <i class="fa-solid fa-play"></i> Iniciar Juego
+                                </button>
+                                <a href="https://emulatorjs.org/" target="_blank" class="px-5 py-3 bg-gba-purple hover:bg-gba-purple/80 text-xs text-gba-lavender rounded-xl transition border border-gba-pink/30 flex items-center gap-2 justify-center">
+                                    <i class="fa-solid fa-cloud-arrow-down"></i> Ver Emulador
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Active Game Canvas / Frame Placeholder -->
+                        <iframe id="gameFrame" src="" class="w-full h-full border-0 hidden" allowfullscreen></iframe>
+                    </div>
+
+                    <!-- Screen Brand -->
+                    <div class="flex justify-between items-center mt-2 px-2 text-[10px] text-gray-500 font-retro">
+                        <span>COLOR SCREEN TFT</span>
+                        <span class="text-gba-pink/60">GBA-GRL-2026</span>
+                    </div>
+                </div>
+
+                <!-- Console Controls Section (D-Pad & Action Buttons) -->
+                <div class="w-full flex items-center justify-between mt-8 px-2 sm:px-8">
+                    
+                    <!-- D-Pad -->
+                    <div class="relative w-28 h-28">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-10 h-10 bg-gba-darkpurple rounded-sm"></div>
+                        </div>
+                        <!-- Up -->
+                        <button onclick="triggerKey('ArrowUp')" class="dpad-btn absolute top-0 left-9 w-10 h-10 rounded-t-lg flex items-center justify-center text-gba-lavender text-xs">
+                            <i class="fa-solid fa-caret-up"></i>
+                        </button>
+                        <!-- Down -->
+                        <button onclick="triggerKey('ArrowDown')" class="dpad-btn absolute bottom-0 left-9 w-10 h-10 rounded-b-lg flex items-center justify-center text-gba-lavender text-xs">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </button>
+                        <!-- Left -->
+                        <button onclick="triggerKey('ArrowLeft')" class="dpad-btn absolute top-9 left-0 w-10 h-10 rounded-l-lg flex items-center justify-center text-gba-lavender text-xs">
+                            <i class="fa-solid fa-caret-left"></i>
+                        </button>
+                        <!-- Right -->
+                        <button onclick="triggerKey('ArrowRight')" class="dpad-btn absolute top-9 right-0 w-10 h-10 rounded-r-lg flex items-center justify-center text-gba-lavender text-xs">
+                            <i class="fa-solid fa-caret-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Center Start / Select Buttons -->
+                    <div class="flex gap-4 items-center -mt-6">
+                        <div class="flex flex-col items-center">
+                            <button onclick="saveGameState()" class="w-12 h-4 bg-gba-darkpurple rounded-full shadow-md active:scale-95 transition border border-gba-lavender/20"></button>
+                            <span class="text-[9px] font-retro text-gba-darkpurple mt-1 uppercase">Save</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <button onclick="loadGameState()" class="w-12 h-4 bg-gba-darkpurple rounded-full shadow-md active:scale-95 transition border border-gba-lavender/20"></button>
+                            <span class="text-[9px] font-retro text-gba-darkpurple mt-1 uppercase">Load</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons A & B -->
+                    <div class="relative w-32 h-28 flex items-center justify-end">
+                        <div class="absolute right-12 top-2 flex flex-col items-center">
+                            <button onclick="triggerKey('KeyX')" class="action-btn w-12 h-12 rounded-full flex items-center justify-center text-white font-retro text-sm font-bold shadow-lg">B</button>
+                            <span class="text-[9px] font-retro text-gba-darkpurple mt-1 uppercase">B</span>
+                        </div>
+                        <div class="absolute right-0 top-10 flex flex-col items-center">
+                            <button onclick="triggerKey('KeyZ')" class="action-btn w-12 h-12 rounded-full flex items-center justify-center text-white font-retro text-sm font-bold shadow-lg">A</button>
+                            <span class="text-[9px] font-retro text-gba-darkpurple mt-1 uppercase">A</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 text-center text-xs text-gba-lavender/60 border-t border-gba-purple/40 mt-auto">
+        <p>Creado con todo el amor y cariño para <strong>Geraldinne</strong> 💖 • The Sims Bustin' Out Retro Experience</p>
+    </footer>
+
+    <!-- Modals -->
+
+    <!-- Love Message Modal -->
+    <div id="loveModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gba-darkpurple border-2 border-gba-pink rounded-3xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            <button onclick="closeModal('loveModal')" class="absolute top-4 right-4 text-gba-lavender hover:text-gba-pink text-lg"><i class="fa-solid fa-xmark"></i></button>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 mx-auto mb-4 text-2xl animate-pulse">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <h3 class="font-retro text-sm text-gba-pink mb-3">Para mi querida Geraldinne</h3>
+                <p class="text-xs text-gba-lavender leading-relaxed mb-6">
+                    "Mi amor, sé cuánto te encantan los juegos retro y en especial The Sims Bustin' Out. Quería regalarte este pequeño rincón digital hecho solo para ti, para que puedas jugarlo cuando quieras desde cualquier dispositivo con una consola virtual personalizada. ¡Espero que te diviertas muchísimo rompiendo las reglas con los Sims! Te amo con todo mi corazón." 💖✨
+                </p>
+                <button onclick="closeModal('loveModal')" class="px-6 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-xs text-white font-retro rounded-xl shadow hover:opacity-95 transition">
+                    ¡Te amo! 🎮💕
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GitHub Upload Guide Modal -->
+    <div id="githubModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gba-darkpurple border-2 border-gba-purple rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('githubModal')" class="absolute top-4 right-4 text-gba-lavender hover:text-gba-pink text-lg"><i class="fa-solid fa-xmark"></i></button>
+            
+            <h3 class="font-retro text-xs text-gba-pink mb-4 flex items-center gap-2">
+                <i class="fa-brands fa-github"></i> Guía paso a paso para subir a GitHub Pages
+            </h3>
+            
+            <div class="space-y-4 text-xs text-gba-lavender/90 leading-relaxed">
+                <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
+                    <span class="font-bold text-gba-pink">Paso 1:</span> Crea una cuenta gratuita en <a href="https://github.com" target="_blank" class="text-pink-400 underline">GitHub.com</a> si aún no tienes una.
+                </div>
+                <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
+                    <span class="font-bold text-gba-pink">Paso 2:</span> Crea un nuevo repositorio haciendo clic en el botón <strong class="text-white">+</strong> arriba a la derecha y selecciona <strong class="text-white">New repository</strong>.
+                </div>
+                <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
+                    <span class="font-bold text-gba-pink">Paso 3:</span> Nómbralo (por ejemplo: <code class="bg-gba-purple px-2 py-0.5 rounded text-white">sims-geraldinne</code>), déjalo en modo <strong class="text-white">Public</strong> y marca la casilla <strong class="text-white">Add a README file</strong>. Haz clic en <strong class="text-white">Create repository</strong>.
+                </div>
+                <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
+                    <span class="font-bold text-gba-pink">Paso 4:</span> Dentro de tu nuevo repositorio, haz clic en el botón <strong class="text-white">Add file</strong> -> <strong class="text-white">Create new file</strong>.
+                </div>
+                <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
+                    <span class="font-bold text-gba-pink">Paso 5:</span> Nombra el archivo exactamente <code class="bg-gba-purple px-2 py-0.5 rounded text-white">index.html</code>. Copia todo el código de esta página y pégalo allí.
+                </div>
+                <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
+                    <span class="font-bold text-gba-pink">Paso 6:</span> Haz clic en <strong class="text-white">Commit changes...</strong> al final de la página.
+                </div>
+                <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
+                    <span class="font-bold text-gba-pink">Paso 7 (Publicar):</span> Ve a la pestaña <strong class="text-white">Settings</strong> de tu repositorio, busca la sección <strong class="text-white">Pages</strong> en el menú lateral izquierdo. En "Build and deployment", asegúrate de que Branch esté en <code class="bg-gba-purple px-2 py-0.5 rounded text-white">main</code> / <code class="bg-gba-purple px-2 py-0.5 rounded text-white">root</code> y haz clic en <strong class="text-white">Save</strong>. ¡Listo! En un minuto tu enlace estará disponible para Geraldinne.
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <button onclick="closeModal('githubModal')" class="px-6 py-2 bg-gba-purple hover:bg-gba-purple/80 text-xs text-white font-retro rounded-xl">
+                    ¡Entendido!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification / Toast Message box -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-gba-darkpurple border border-gba-pink text-gba-lavender text-xs px-4 py-3 rounded-2xl shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
+        <i class="fa-solid fa-heart text-pink-400 text-base" id="toastIcon"></i>
+        <span id="toastMessage">Mensaje</span>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Modal Control Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Toast Notification System (replaces alert)
+        function showToast(message, isLove = false) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Launch Emulator Simulator
+        function launchEmulator() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const gameFrame = document.getElementById('gameFrame');
+            const powerLed = document.getElementById('powerLed');
+
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                gameFrame.classList.remove('hidden');
+                // Embedding a responsive online web emulator instance or retro arcade frame for The Sims Bustin' Out
+                gameFrame.src = 'https://emulatorjs.org/embed/gba?rom=https://ia801300.us.archive.org/19/items/gba_roms_202009/The%20Sims%20-%20Bustin%27%20Out%20%28U%29%28TrashMan%29.gba';
+                powerLed.className = 'w-3 h-3 rounded-full bg-green-400 shadow-[0_0_10px_#4ade80] animate-pulse';
+                showToast('¡Consola encendida para Geraldinne! 🎮✨');
+            }, 500);
+        }
+
+        // Simulated Controls Trigger
+        function triggerKey(keyName) {
+            showToast(`Botón presionado: ${keyName}`);
+            // Simulated keyboard event dispatch for the iframe or emulator
+            const event = new KeyboardEvent('keydown', { code: keyName, bubbles: true });
+            document.dispatchEvent(event);
+        }
+
+        // Save & Load State Simulation
+        function saveGameState() {
+            showToast('¡Partida guardada con éxito para Geraldinne! 💾💖');
+        }
+
+        function loadGameState() {
+            showToast('¡Partida cargada correctamente! ⚡🎮');
+        }
+
+        // Audio Toggle Simulator
+        let audioPlaying = false;
+        function toggleAudio() {
+            audioPlaying = !audioPlaying;
+            const icon = document.getElementById('audioIcon');
+            const text = document.getElementById('audioText');
+            if(audioPlaying) {
+                icon.className = 'fa-solid fa-volume-high text-pink-400';
+                text.textContent = 'Música Romántica: On';
+                showToast('Música ambiental activada 🎵💕');
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark';
+                text.textContent = 'Música Romántica: Off';
+                showToast('Música en silencio');
+            }
+        }
+    </script>
+</body>
+</html>
