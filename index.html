@@ -88,6 +88,9 @@
                     <p class="text-xs text-gba-lavender/80">The Sims Bustin' Out Special Edition 💖</p>
                 </div>
             </div>
+            <div class="flex items-center gap-3 flex-wrap justify-center">
+                <button onclick="openModal('githubModal')" class="px-3 py-2 bg-gba-purple hover:bg-gba-purple/80 text-xs text-gba-lavender rounded-full border border-gba-pink/30 transition flex items-center gap-2">
+                    <i class="fa-brands fa-github"></i> Guía GitHub
                 </button>
                 <button onclick="openModal('loveModal')" class="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-xs text-white rounded-full shadow transition flex items-center gap-2 font-medium animate-bounce">
                     <i class="fa-solid fa-heart"></i> Mensaje para Geraldinne
@@ -110,7 +113,7 @@
                     <i class="fa-solid fa-sparkles"></i> Hola, Geraldinne!
                 </h2>
                 <p class="text-xs text-gba-lavender/90 leading-relaxed mb-4">
-                    Prearé este espacio especialmente para ti. Aquí podrás revivir el clásico de Game Boy Advance <strong>The Sims Bustin' Out</strong> directamente en tu navegador con estilo retro y mucho amor.
+                    Preparé este espacio especialmente para ti. Aquí podrás revivir el clásico de Game Boy Advance <strong>The Sims Bustin' Out</strong> directamente en tu navegador con estilo retro y mucho amor.
                 </p>
                 <div class="bg-gba-purple/30 rounded-xl p-3 border border-gba-lavender/10 text-xs space-y-2">
                     <div class="flex items-center justify-between text-gba-pink">
@@ -138,10 +141,10 @@
                         <span>Movimiento:</span> <code class="bg-gba-purple/50 px-2 py-0.5 rounded text-gba-pink font-mono">Teclas de Flecha</code>
                     </li>
                     <li class="flex justify-between items-center bg-black/20 px-3 py-1.5 rounded-lg">
-                        <span>Botón A (Acción):</span> <code class="bg-gba-purple/50 px-2 py-0.5 rounded text-gba-pink font-mono">Tecla X / Z</code>
+                        <span>Botón A (Acción):</span> <code class="bg-gba-purple/50 px-2 py-0.5 rounded text-gba-pink font-mono">Tecla Z</code>
                     </li>
                     <li class="flex justify-between items-center bg-black/20 px-3 py-1.5 rounded-lg">
-                        <span>Botón B (Cancelar):</span> <code class="bg-gba-purple/50 px-2 py-0.5 rounded text-gba-pink font-mono">Tecla Z / X</code>
+                        <span>Botón B (Cancelar):</span> <code class="bg-gba-purple/50 px-2 py-0.5 rounded text-gba-pink font-mono">Tecla X</code>
                     </li>
                     <li class="flex justify-between items-center bg-black/20 px-3 py-1.5 rounded-lg">
                         <span>Start / Select:</span> <code class="bg-gba-purple/50 px-2 py-0.5 rounded text-gba-pink font-mono">Enter / Espacio</code>
@@ -152,9 +155,9 @@
             <!-- ROM Loader / Custom File Option -->
             <div class="bg-gba-darkpurple/60 backdrop-blur-md rounded-2xl p-5 border border-gba-purple/50 shadow-xl">
                 <h3 class="font-retro text-xs text-gba-pink mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-file-arrow-up"></i> Cargar otra ROM (.gba)
+                    <i class="fa-solid fa-file-arrow-up"></i> Cargar tu ROM (.gba)
                 </h3>
-                <p class="text-xs text-gba-lavender/80 mb-3">Si tienes otra ROM guardada, puedes seleccionarla aquí:</p>
+                <p class="text-xs text-gba-lavender/80 mb-3">Si subiste tu archivo con otro nombre, selecciónalo aquí:</p>
                 <input type="file" id="romUpload" accept=".gba,.gbc,.gb" class="w-full text-xs text-gba-lavender file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-gba-pink file:text-gba-darkpurple hover:file:bg-gba-rose cursor-pointer"/>
             </div>
         </div>
@@ -172,7 +175,7 @@
                 </div>
 
                 <!-- Brand Title on Console -->
-                <div class="font-retro text-xs text-gba-darkpurple/80 tracking-widest mb-3 uppercase">
+                <div class="font-retro text-xs text-gba-darkpurple/80 tracking-widest mb-3 uppercase text-center">
                     Nintendo Game Boy Advance • Geraldinne Edition
                 </div>
 
@@ -182,7 +185,7 @@
                     <!-- Screen Overlay / Canvas or Emulator Container -->
                     <div id="emulatorContainer" class="w-full aspect-[3/2] bg-gray-900 rounded-lg overflow-hidden flex flex-col items-center justify-center relative shadow-inner">
                         
-                        <!-- Embedded Emulator Frame / EmulatorJS Simulation or Placeholder with direct playable web link -->
+                        <!-- Loading / Start Screen -->
                         <div id="loadingScreen" class="absolute inset-0 bg-gradient-to-br from-gba-darkpurple to-purple-900 flex flex-col items-center justify-center p-6 text-center z-10 transition-opacity duration-500">
                             <div class="w-16 h-16 bg-gba-pink/20 rounded-full flex items-center justify-center text-gba-pink mb-4 animate-bounce">
                                 <i class="fa-solid fa-gamepad text-3xl"></i>
@@ -194,14 +197,13 @@
                                 <button onclick="launchEmulator()" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-xs font-retro text-white rounded-xl shadow-lg transition transform hover:scale-105 flex items-center gap-2">
                                     <i class="fa-solid fa-play"></i> Iniciar Juego
                                 </button>
-                                <a href="https://emulatorjs.org/" target="_blank" class="px-5 py-3 bg-gba-purple hover:bg-gba-purple/80 text-xs text-gba-lavender rounded-xl transition border border-gba-pink/30 flex items-center gap-2 justify-center">
-                                    <i class="fa-solid fa-cloud-arrow-down"></i> Ver Emulador
-                                </a>
                             </div>
                         </div>
 
-                        <!-- Active Game Canvas / Frame Placeholder -->
-                        <iframe id="gameFrame" src="" class="w-full h-full border-0 hidden" allowfullscreen></iframe>
+                        <!-- Embedded Emulator Frame / EmulatorJS Simulation -->
+                        <div id="gameEmbedContainer" class="w-full h-full hidden">
+                            <div id="game"></div>
+                        </div>
                     </div>
 
                     <!-- Screen Brand -->
@@ -219,19 +221,15 @@
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="w-10 h-10 bg-gba-darkpurple rounded-sm"></div>
                         </div>
-                        <!-- Up -->
                         <button onclick="triggerKey('ArrowUp')" class="dpad-btn absolute top-0 left-9 w-10 h-10 rounded-t-lg flex items-center justify-center text-gba-lavender text-xs">
                             <i class="fa-solid fa-caret-up"></i>
                         </button>
-                        <!-- Down -->
                         <button onclick="triggerKey('ArrowDown')" class="dpad-btn absolute bottom-0 left-9 w-10 h-10 rounded-b-lg flex items-center justify-center text-gba-lavender text-xs">
                             <i class="fa-solid fa-caret-down"></i>
                         </button>
-                        <!-- Left -->
                         <button onclick="triggerKey('ArrowLeft')" class="dpad-btn absolute top-9 left-0 w-10 h-10 rounded-l-lg flex items-center justify-center text-gba-lavender text-xs">
                             <i class="fa-solid fa-caret-left"></i>
                         </button>
-                        <!-- Right -->
                         <button onclick="triggerKey('ArrowRight')" class="dpad-btn absolute top-9 right-0 w-10 h-10 rounded-r-lg flex items-center justify-center text-gba-lavender text-xs">
                             <i class="fa-solid fa-caret-right"></i>
                         </button>
@@ -275,10 +273,8 @@
     </footer>
 
     <!-- Modals -->
-
-    <!-- Love Message Modal -->
     <div id="loveModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-gba-darkpurple border-2 border-gba-pink rounded-3xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+        <div class="bg-gba-darkpurple border-2 border-gba-pink rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
             <button onclick="closeModal('loveModal')" class="absolute top-4 right-4 text-gba-lavender hover:text-gba-pink text-lg"><i class="fa-solid fa-xmark"></i></button>
             <div class="text-center">
                 <div class="w-16 h-16 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 mx-auto mb-4 text-2xl animate-pulse">
@@ -286,7 +282,7 @@
                 </div>
                 <h3 class="font-retro text-sm text-gba-pink mb-3">Para mi querida Geraldinne</h3>
                 <p class="text-xs text-gba-lavender leading-relaxed mb-6">
-                    "Mi amor, sé cuánto te encantan los juegos retro y en especial The Sims Bustin' Out. Quería regalarte este pequeño rincón digital hecho solo para ti, para que puedas jugarlo cuando quieras desde cualquier dispositivo con una consola virtual personalizada. ¡Espero que te diviertas muchísimo rompiendo las reglas con los Sims! Te amo con todo mi corazón." 💖✨
+                    "Mi amor, sé cuánto te encantan los juegos retro y en especial The Sims Bustin' Out. Quería regalarte este pequeño rincón digital hecho solo para ti, para que puedas jugarlo cuando quieras desde cualquier dispositivo con una consola virtual personalizada. ¡Espero que te diviertas muchísimo! Te amo con todo mi corazón." 💖✨
                 </p>
                 <button onclick="closeModal('loveModal')" class="px-6 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-xs text-white font-retro rounded-xl shadow hover:opacity-95 transition">
                     ¡Te amo! 🎮💕
@@ -306,25 +302,16 @@
             
             <div class="space-y-4 text-xs text-gba-lavender/90 leading-relaxed">
                 <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
-                    <span class="font-bold text-gba-pink">Paso 1:</span> Crea una cuenta gratuita en <a href="https://github.com" target="_blank" class="text-pink-400 underline">GitHub.com</a> si aún no tienes una.
+                    <span class="font-bold text-gba-pink">Paso 1:</span> Crea una cuenta en <a href="https://github.com" target="_blank" class="text-pink-400 underline">GitHub.com</a>.
                 </div>
                 <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
-                    <span class="font-bold text-gba-pink">Paso 2:</span> Crea un nuevo repositorio haciendo clic en el botón <strong class="text-white">+</strong> arriba a la derecha y selecciona <strong class="text-white">New repository</strong>.
+                    <span class="emulator-step"><span class="font-bold text-gba-pink">Paso 2:</span> Crea un nuevo repositorio público (ej. <code class="bg-gba-purple px-2 py-0.5 rounded text-white">sims-geraldinne</code>).</span>
                 </div>
                 <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
-                    <span class="font-bold text-gba-pink">Paso 3:</span> Nómbralo (por ejemplo: <code class="bg-gba-purple px-2 py-0.5 rounded text-white">sims-geraldinne</code>), déjalo en modo <strong class="text-white">Public</strong> y marca la casilla <strong class="text-white">Add a README file</strong>. Haz clic en <strong class="text-white">Create repository</strong>.
+                    <span class="font-bold text-gba-pink">Paso 3:</span> Sube tu archivo <code class="bg-gba-purple px-2 py-0.5 rounded text-white">index.html</code> y tu archivo ROM (ej. <code class="bg-gba-purple px-2 py-0.5 rounded text-white">the-sims.gba</code>) directamente a la raíz.
                 </div>
                 <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
-                    <span class="font-bold text-gba-pink">Paso 4:</span> Dentro de tu nuevo repositorio, haz clic en el botón <strong class="text-white">Add file</strong> -> <strong class="text-white">Create new file</strong>.
-                </div>
-                <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
-                    <span class="font-bold text-gba-pink">Paso 5:</span> Nombra el archivo exactamente <code class="bg-gba-purple px-2 py-0.5 rounded text-white">index.html</code>. Copia todo el código de esta página y pégalo allí.
-                </div>
-                <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
-                    <span class="font-bold text-gba-pink">Paso 6:</span> Haz clic en <strong class="text-white">Commit changes...</strong> al final de la página.
-                </div>
-                <div class="bg-black/30 p-3 rounded-xl border border-gba-purple/40">
-                    <span class="font-bold text-gba-pink">Paso 7 (Publicar):</span> Ve a la pestaña <strong class="text-white">Settings</strong> de tu repositorio, busca la sección <strong class="text-white">Pages</strong> en el menú lateral izquierdo. En "Build and deployment", asegúrate de que Branch esté en <code class="bg-gba-purple px-2 py-0.5 rounded text-white">main</code> / <code class="bg-gba-purple px-2 py-0.5 rounded text-white">root</code> y haz clic en <strong class="text-white">Save</strong>. ¡Listo! En un minuto tu enlace estará disponible para Geraldinne.
+                    <span class="font-bold text-gba-pink">Paso 4:</span> Ve a <strong class="text-white">Settings &gt; Pages</strong>, selecciona la rama <code class="bg-gba-purple px-2 py-0.5 rounded text-white">main</code> y guarda. ¡Tu enlace estará listo en 2 minutos!
                 </div>
             </div>
 
@@ -336,68 +323,56 @@
         </div>
     </div>
 
-    <!-- Notification / Toast Message box -->
+    <!-- Toast Notification System -->
     <div id="toast" class="fixed bottom-6 right-6 bg-gba-darkpurple border border-gba-pink text-gba-lavender text-xs px-4 py-3 rounded-2xl shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
-        <i class="fa-solid fa-heart text-pink-400 text-base" id="toastIcon"></i>
+        <i class="fa-solid fa-heart text-pink-400 text-base"></i>
         <span id="toastMessage">Mensaje</span>
     </div>
 
-    <!-- JavaScript Logic -->
-    <script>
-        // Modal Control Functions
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-        }
+    <!-- EmulatorJS Integration Script -->
+    <script type="text/javascript">
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-        // Toast Notification System (replaces alert)
-        function showToast(message, isLove = false) {
+        function showToast(message) {
             const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toastMessage');
-            toastMsg.textContent = message;
+            document.getElementById('toastMessage').textContent = message;
             toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3500);
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3500);
         }
 
-        // Launch Emulator Simulator
         function launchEmulator() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            const gameFrame = document.getElementById('gameFrame');
-            const powerLed = document.getElementById('powerLed');
-
-            loadingScreen.style.opacity = '0';
+            document.getElementById('loadingScreen').style.opacity = '0';
             setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-                gameFrame.classList.remove('hidden');
-                // Embedding a responsive online web emulator instance or retro arcade frame for The Sims Bustin' Out
-                gameFrame.src = 'the-sims.gba';
-                powerLed.className = 'w-3 h-3 rounded-full bg-green-400 shadow-[0_0_10px_#4ade80] animate-pulse';
+                document.getElementById('loadingScreen').classList.add('hidden');
+                document.getElementById('gameEmbedContainer').classList.remove('hidden');
+                document.getElementById('powerLed').className = 'w-3 h-3 rounded-full bg-green-400 shadow-[0_0_10px_#4ade80] animate-pulse';
+                
+                // Configuración de EmulatorJS
+                window.EJS_player = '#game';
+                window.EJS_gameUrl = 'the-sims.gba'; // Cambia esto por el nombre exacto de tu ROM en GitHub
+                window.EJS_core = 'gba';
+                window.EJS_color = '#4c3b69';
+                window.EJS_startOnLoaded = true;
+
+                // Cargar script dinámico de EmulatorJS
+                const script = document.createElement('script');
+                script.src = 'https://emulatorjs.com/loader.js';
+                document.body.appendChild(script);
+
                 showToast('¡Consola encendida para Geraldinne! 🎮✨');
             }, 500);
         }
 
-        // Simulated Controls Trigger
         function triggerKey(keyName) {
             showToast(`Botón presionado: ${keyName}`);
-            // Simulated keyboard event dispatch for the iframe or emulator
             const event = new KeyboardEvent('keydown', { code: keyName, bubbles: true });
             document.dispatchEvent(event);
         }
 
-        // Save & Load State Simulation
-        function saveGameState() {
-            showToast('¡Partida guardada con éxito para Geraldinne! 💾💖');
-        }
+        function saveGameState() { showToast('¡Partida guardada con éxito para Geraldinne! 💾💖'); }
+        function loadGameState() { showToast('¡Partida cargada correctamente! ⚡🎮'); }
 
-        function loadGameState() {
-            showToast('¡Partida cargada correctamente! ⚡🎮');
-        }
-
-        // Audio Toggle Simulator
         let audioPlaying = false;
         function toggleAudio() {
             audioPlaying = !audioPlaying;
